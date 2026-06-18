@@ -1,5 +1,6 @@
 "use client"
 
+import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -13,42 +14,32 @@ export default function Signup() {
   })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
     console.log("Submitted:", form)
     alert("AI Receptionist setup started (demo)")
   }
 
   return (
-    <main style={{
-      minHeight: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      background: "#f5f5f5",
-      padding: 20
-    }}>
+    <main style={styles.page}>
+      <Card style={styles.card}>
+        <h1 style={styles.title}>Setup Your AI Receptionist</h1>
 
-      <Card style={{
-        width: "100%",
-        maxWidth: 500,
-        padding: 30
-      }}>
-
-        <h1 style={{ fontSize: 28, fontWeight: 700 }}>
-          Setup Your AI Receptionist
-        </h1>
-
-        <p style={{ marginTop: 8, opacity: 0.7 }}>
+        <p style={styles.subtitle}>
           Get your 7-day free trial. No credit card required.
         </p>
 
-        <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
-
-          <label>Business Name</label>
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <label style={styles.label}>Business Name</label>
           <Input
             name="businessName"
             value={form.businessName}
@@ -56,9 +47,9 @@ export default function Signup() {
             placeholder="e.g. Smith Electrical"
           />
 
-          <div style={{ height: 10 }} />
+          <div style={{ height: 12 }} />
 
-          <label>Phone Number</label>
+          <label style={styles.label}>Phone Number</label>
           <Input
             name="phone"
             value={form.phone}
@@ -66,9 +57,9 @@ export default function Signup() {
             placeholder="(555) 123-4567"
           />
 
-          <div style={{ height: 10 }} />
+          <div style={{ height: 12 }} />
 
-          <label>Services You Offer</label>
+          <label style={styles.label}>Services You Offer</label>
           <Input
             name="services"
             value={form.services}
@@ -76,22 +67,66 @@ export default function Signup() {
             placeholder="Electrical repair, installs, emergency calls"
           />
 
-          <Button type="submit" style={{ width: "100%", marginTop: 20 }}>
+          <Button type="submit" style={styles.button}>
             Activate My AI Receptionist
           </Button>
-
         </form>
 
-        <p style={{
-          marginTop: 15,
-          fontSize: 12,
-          opacity: 0.6,
-          textAlign: "center"
-        }}>
+        <p style={styles.footer}>
           Your AI receptionist will be configured instantly after signup.
         </p>
-
       </Card>
     </main>
   )
+}
+
+/* ---------- STYLES ---------- */
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#f5f5f5",
+    padding: 20,
+  } as React.CSSProperties,
+
+  card: {
+    width: "100%",
+    maxWidth: 500,
+    padding: 30,
+  } as React.CSSProperties,
+
+  title: {
+    fontSize: 28,
+    fontWeight: 700,
+  } as React.CSSProperties,
+
+  subtitle: {
+    marginTop: 8,
+    opacity: 0.7,
+  } as React.CSSProperties,
+
+  form: {
+    marginTop: 20,
+  } as React.CSSProperties,
+
+  label: {
+    display: "block",
+    marginBottom: 6,
+    fontSize: 14,
+  } as React.CSSProperties,
+
+  button: {
+    width: "100%",
+    marginTop: 20,
+  } as React.CSSProperties,
+
+  footer: {
+    marginTop: 15,
+    fontSize: 12,
+    opacity: 0.6,
+    textAlign: "center",
+  } as React.CSSProperties,
 }
