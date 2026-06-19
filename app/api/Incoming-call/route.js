@@ -1,6 +1,11 @@
+export async function GET() {
+  return new Response("Incoming call route is alive", {
+    status: 200,
+  });
+}
+
 export async function POST() {
   try {
-    // get business data from your API
     const res = await fetch("https://myservicelineai.com/api/business");
     const business = await res.json();
 
@@ -8,7 +13,6 @@ export async function POST() {
     const greeting =
       business?.greeting || "Hello, how can I help you today?";
 
-    // Twilio XML response
     return new Response(
       `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
