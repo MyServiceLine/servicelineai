@@ -1,14 +1,14 @@
 export async function POST() {
   try {
-    // Get business data from your API
+    // get business data from your API
     const res = await fetch("https://myservicelineai.com/api/business");
     const business = await res.json();
 
     const name = business?.name || "our business";
     const greeting =
-      business?.greeting ||
-      "Hello, how can I help you today?";
+      business?.greeting || "Hello, how can I help you today?";
 
+    // Twilio XML response
     return new Response(
       `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
@@ -27,7 +27,7 @@ export async function POST() {
       `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Say>
-    Sorry, there was an error connecting your call.
+    Sorry, we could not load business information.
   </Say>
 </Response>`,
       {

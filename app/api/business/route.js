@@ -1,36 +1,20 @@
 let activeBusiness = null;
 
-// Save intake form data
 export async function POST(req) {
-  try {
-    const data = await req.json();
+  const data = await req.json();
 
-    activeBusiness = {
-      name: data.name || "Unknown Business",
-      greeting:
-        data.greeting ||
-        "Hello, how can I help you today?",
-      services: data.services || "",
-      phone: data.phone || "",
-      createdAt: new Date().toISOString(),
-    };
+  activeBusiness = {
+    name: data.name || "Demo Business",
+    greeting: data.greeting || "Hi, how can I help you?",
+    services: data.services || "",
+  };
 
-    console.log("Business saved:", activeBusiness);
-
-    return Response.json({
-      success: true,
-      message: "Business intake saved",
-      activeBusiness,
-    });
-  } catch (err) {
-    return Response.json(
-      { success: false, error: "Invalid JSON body" },
-      { status: 400 }
-    );
-  }
+  return Response.json({
+    success: true,
+    activeBusiness,
+  });
 }
 
-// Read business data (used by Twilio later)
 export async function GET() {
-  return Response.json(activeBusiness || null);
+  return Response.json(activeBusiness);
 }
