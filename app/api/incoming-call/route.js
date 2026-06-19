@@ -3,7 +3,7 @@ export async function POST() {
     `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Say voice="alice">
-    Hello. Your AI receptionist test is working.
+    Hello. Your AI receptionist is now connected.
   </Say>
 </Response>`,
     {
