@@ -1,0 +1,24 @@
+let activeBusiness = null;
+
+export async function POST(req) {
+  try {
+    activeBusiness = await req.json();
+
+    console.log("Business saved:", activeBusiness);
+
+    return Response.json({
+      success: true,
+      message: "Business saved successfully",
+      activeBusiness,
+    });
+  } catch (err) {
+    return Response.json(
+      { success: false, error: "Invalid request" },
+      { status: 400 }
+    );
+  }
+}
+
+export async function GET() {
+  return Response.json(activeBusiness || null);
+}
